@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
+import Header from "./Header";
 import { useTranslation } from "react-i18next";
 
 interface SliderItem {
@@ -25,6 +26,22 @@ const fetchSlider = async (lang: string, setLoading: (v: boolean) => void): Prom
   const data = await res.json();
   return data.data || [];
 };
+
+function HeaderTransparent() {
+  return (
+    <div className="w-full">
+      <HeaderWrapper />
+    </div>
+  );
+}
+
+function HeaderWrapper() {
+  return (
+    <div className="bg-white/40 dark:bg-black/40 backdrop-blur-md mb-6">
+      <Header />
+    </div>
+  );
+}
 
 export default function SliderSection() {
   const [slides, setSlides] = useState<SliderItem[]>([]);
@@ -68,7 +85,10 @@ export default function SliderSection() {
 
   return (
     <section className="w-full relative">
-      <div className="w-full h-screen min-h-[420px] relative overflow-hidden flex items-center justify-center">
+      <div className="w-full h-screen min-h-105 relative overflow-hidden flex items-center justify-center">
+        <div className="absolute top-0 left-0 w-full z-30">
+          <HeaderTransparent />
+        </div>
         <picture className="absolute inset-0 w-full h-full">
           <source media="(max-width: 768px)" srcSet={slide.mobile_image} />
           <img

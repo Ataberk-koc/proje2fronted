@@ -1,15 +1,16 @@
 
 "use client";
-import Image from "next/image";
-import { useTranslation } from "react-i18next";
+// ...existing code...
 import SliderSection from "@/components/SliderSection";
+// ...existing code...
 
 
 export default function Home() {
-  const { t } = useTranslation();
+  // ...existing code...
   return (
     <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black">
       <main className="flex flex-col items-center w-full">
+        {/* Section2 sadece layout'ta kullanılacak */}
         <SliderSection />
       </main>
     </div>

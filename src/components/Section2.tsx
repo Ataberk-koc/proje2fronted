@@ -18,7 +18,7 @@ const STORAGE_URL = "http://127.0.0.1:8000/storage/";
 
 export default function Section2() {
   const [languages, setLanguages] = useState<Language[]>([]);
-  const [selectedLang, setSelectedLang] = useState("");
+  const [selectedLang, setSelectedLang] = useState(i18n.language);
   const [settings, setSettings] = useState<Settings | null>(null);
 
   useEffect(() => {

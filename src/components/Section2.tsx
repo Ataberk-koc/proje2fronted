@@ -70,33 +70,30 @@ export default function Section2() {
             Array.isArray(settings?.phone)
               ? (settings.phone as PhoneContact[]).map((p, idx) => (
                   <span key={idx}>
-                    <a href={`tel:${p.phone}`} className="underline">{p.tag ? `${p.tag}: ` : ""}{p.phone}</a>{idx < (settings.phone as PhoneContact[]).length - 1 ? ", " : ""}
+                    <a href={`tel:${p.phone}`}>{p.tag ? `${p.tag}: ` : ""}{p.phone}</a>{idx < (settings.phone as PhoneContact[]).length - 1 ? ", " : ""}
                   </span>
                 ))
               : typeof settings?.phone === "object" && settings?.phone !== null
-                ? <a href={`tel:${(settings.phone as PhoneContact).phone}`} className="underline">{(settings.phone as PhoneContact).tag ? `${(settings.phone as PhoneContact).tag}: ` : ""}{(settings.phone as PhoneContact).phone}</a>
-                : <a href={`tel:${settings?.phone || ""}`} className="underline">{settings?.phone || "+90 555 111 22 33"}</a>
+                ? <a href={`tel:${(settings.phone as PhoneContact).phone}`} >{(settings.phone as PhoneContact).tag ? `${(settings.phone as PhoneContact).tag}: ` : ""}{(settings.phone as PhoneContact).phone}</a>
+                : <a href={`tel:${settings?.phone || ""}`} >{settings?.phone || "+90 555 111 22 33"}</a>
           }
         </span>
-        <span className="hidden sm:inline">|</span>
         <span className="flex items-center gap-1">
           <MdEmail className="inline text-blue-500" size={16} />  {
             Array.isArray(settings?.email)
               ? (settings.email as Contact[]).map((e, idx) => (
                   <span key={idx}>
-                    <a href={`mailto:${e.email}`} className="underline">{e.name ? `${e.name}: ` : ""}{e.email}</a>{idx < (settings.email as Contact[]).length - 1 ? ", " : ""}
+                    <a href={`mailto:${e.email}`} >{e.name ? `${e.name}: ` : ""}{e.email}</a>{idx < (settings.email as Contact[]).length - 1 ? ", " : ""}
                   </span>
                 ))
-              : typeof settings?.email === "object" && settings?.email !== null
-                ? <a href={`mailto:${(settings.email as Contact).email}`} className="underline">{(settings.email as Contact).name ? `${(settings.email as Contact).name}: ` : ""}{(settings.email as Contact).email}</a>
-                : <a href={`mailto:${settings?.email || ""}`} className="underline">{settings?.email || "info@myapp.com"}</a>
+                    : typeof settings?.email === "object" && settings?.email !== null
+                        ? <a href={`mailto:${(settings.email as Contact).email}`} >{(settings.email as Contact).name ? `${(settings.email as Contact).name}: ` : ""}{(settings.email as Contact).email}</a>
+                : <a href={`mailto:${settings?.email || ""}`} >{settings?.email || "info@myapp.com"}</a>
           }
         </span>
-        <span className="hidden sm:inline">|</span>
         <span className="flex items-center gap-1">
           <MdLocationOn className="inline text-blue-500" size={16} /> {settings?.address || settings?.full_address || "İstanbul, Türkiye"}
         </span>
-        <span className="hidden sm:inline">|</span>
         <span className="flex items-center gap-1">
           <MdAccessTime className="inline text-blue-500" size={16} /> {
             Array.isArray(settings?.working_hours)

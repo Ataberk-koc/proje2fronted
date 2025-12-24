@@ -47,8 +47,20 @@ export default function OnePage() {
             onReadMore={() => {}}
           />
         )}
-      </main>
-      <Footer />
-    </div>
-  );
-}
+      return (
+        <div className="flex flex-col min-h-screen bg-zinc-50 dark:bg-black">
+          <Header />
+          <main className="flex flex-col items-center w-full flex-1">
+            {about && about.banner && (
+              <AboutSection
+                banner={about.banner.startsWith('http') ? about.banner : `http://127.0.0.1:8000/storage/${about.banner}`}
+                content={about.content}
+                description={about.categories && about.categories[0]?.description}
+                onReadMore={() => {}}
+                showReadMore={false}
+              />
+            )}
+          </main>
+          <Footer />
+        </div>
+      );

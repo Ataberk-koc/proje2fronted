@@ -7,7 +7,21 @@ import { useParams } from "next/navigation";
 
 export default function OnePage() {
   const params = useParams();
-  const [about, setAbout] = useState<any>(null);
+  interface Category {
+    id: number;
+    title: string;
+    slug: string;
+    description: string;
+    banner: string;
+  }
+  interface AboutData {
+    id: number;
+    title: string;
+    slug: string;
+    content: string;
+    categories: Category[];
+  }
+  const [about, setAbout] = useState<AboutData | null>(null);
 
   useEffect(() => {
     if (params?.slug && params.slug[0] === "hakkimizda") {
@@ -25,18 +39,13 @@ export default function OnePage() {
     <div className="flex flex-col min-h-screen bg-zinc-50 dark:bg-black">
       <Header />
       <main className="flex flex-col items-center w-full flex-1">
-        {about && about.categories && Array.isArray(about.categories) && (
-          (() => {
-            const hakkimizdaCat = about.categories.find((cat: any) => cat.slug === "hakkimizda");
-            if (!hakkimizdaCat || !hakkimizdaCat.banner) return null;
-            return (
-              <AboutSection
-                banner={hakkimizdaCat.banner.startsWith('http') ? hakkimizdaCat.banner : `http://127.0.0.1:8000/storage/${hakkimizdaCat.banner}`}
-                content={hakkimizdaCat.description}
-                onReadMore={() => {}}
-              />
-            );
-          })()
+        {about && about.categories && about.categories[0]?.banner && (
+          <AboutSection
+            banner={about.categories[0].banner.startsWith('http') ? about.categories[0].banner : `http://127.0.0.1:8000/storage/${about.categories[0].banner}`}
+            content={about.content}
+            description={about.categories[0].description}
+            onReadMore={() => {}}
+          />
         )}
       </main>
       <Footer />

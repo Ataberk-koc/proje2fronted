@@ -1,26 +1,40 @@
+import Image from 'next/image';
 import React from 'react';
 
 interface AboutSectionProps {
   banner: string;
   content: string;
+  description?: string;
   onReadMore: () => void;
 }
 
-const AboutSection: React.FC<AboutSectionProps> = ({ banner, content, onReadMore }) => {
-  // Debug: log banner value
-  console.log('AboutSection banner:', banner);
+const AboutSection: React.FC<AboutSectionProps> = ({ banner, content, description, onReadMore }) => {
   return (
-    <section style={{ display: 'flex', alignItems: 'center', gap: '2rem', margin: '2rem 0' }}>
-      <div style={{ flex: 1 }}>
+    <section
+      className="w-full flex flex-col md:flex-row items-center gap-8 bg-white rounded-xl shadow-lg p-6 md:p-10 border border-zinc-200 min-h-[600px] justify-center"
+      style={{ backdropFilter: 'blur(4px)', margin: 0 }}
+    >
+      <div className="flex-1 w-full flex justify-center items-center">
         {banner ? (
-          <img src={banner} alt="Hakkımızda Banner" style={{ width: '100%', borderRadius: '8px' }} />
+          <img
+            src={banner}
+            alt="Hakkımızda Banner"
+            className="rounded-lg shadow-md w-full max-w-md object-cover"
+            style={{ maxHeight: 340 }}
+          />
         ) : (
-          <div style={{ color: 'red' }}>Banner bulunamadı</div>
+          <div className="text-red-500">Banner bulunamadı</div>
         )}
       </div>
-      <div style={{ flex: 2 }}>
-        <div dangerouslySetInnerHTML={{ __html: content }} />
-        <button onClick={onReadMore} style={{ marginTop: '1rem', padding: '0.5rem 1.5rem', background: '#0070f3', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+      <div className="flex-2 w-full flex flex-col gap-4">
+        {description && (
+          <div className="text-lg text-black font-semibold" dangerouslySetInnerHTML={{ __html: description }} />
+        )}
+        <div className="text-base text-black" dangerouslySetInnerHTML={{ __html: content }} />
+        <button
+          onClick={onReadMore}
+          className="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow transition-all duration-200 self-start"
+        >
           Devamını Oku
         </button>
       </div>

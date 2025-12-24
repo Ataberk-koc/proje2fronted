@@ -22,18 +22,13 @@ export default function Home() {
     <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black">
       <main className="flex flex-col items-center w-full">
         <SliderSection />
-        {about && about.categories && Array.isArray(about.categories) && (
-          (() => {
-            const hakkimizdaCat = about.categories.find((cat: any) => cat.slug === "hakkimizda");
-            if (!hakkimizdaCat || !hakkimizdaCat.banner) return null;
-            return (
-              <AboutSection
-                banner={hakkimizdaCat.banner.startsWith('http') ? hakkimizdaCat.banner : `http://127.0.0.1:8000/storage/${hakkimizdaCat.banner}`}
-                content={hakkimizdaCat.description}
-                onReadMore={() => router.push("/hakkimizda")}
-              />
-            );
-          })()
+        {about && about.banner && (
+          <AboutSection
+            banner={about.banner.startsWith('http') ? about.banner : `http://127.0.0.1:8000/storage/${about.banner}`}
+            content={about.content}
+            description={about.categories[0].description}
+            onReadMore={() => router.push("/hakkimizda")}
+          />
         )}
       </main>
     </div>

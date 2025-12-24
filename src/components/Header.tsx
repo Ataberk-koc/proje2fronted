@@ -43,7 +43,7 @@ export default function Header() {
 					{settings?.site_name || "Proje2"}
 				</span>
 			</div>
-			<nav className="flex gap-4 ml-68">
+			<nav className="flex gap-4 ml-68 cursor-pointer">
 				<Link href="/" className="px-4 py-2 rounded-full bg-white/70 dark:bg-blue-950/70 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800">Anasayfa</Link>
 				<Link href="/hakkimizda" className="px-4 py-2 rounded-full bg-white/70 dark:bg-blue-950/70 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800">Hakkımızda</Link>
 				<Link href="/hizmetlerimiz" className="px-4 py-2 rounded-full bg-white/70 dark:bg-blue-950/70 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800">Hizmetlerimiz</Link>

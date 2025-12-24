@@ -136,7 +136,6 @@ export default function SliderSection() {
           </div>
         )}
       </div>
-      {/* Animasyon kaldırıldı */}
     </section>
   );
 }

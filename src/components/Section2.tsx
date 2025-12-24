@@ -62,7 +62,7 @@ export default function Section2() {
   };
 
   return (
-    <section className="w-full py-2 bg-gray-100 dark:bg-gray-900 shadow flex flex-col sm:flex-row items-center justify-between px-4 gap-2 relative min-h-12 max-h-15 overflow-hidden">
+    <section className="w-full py-2 flex flex-col sm:flex-row items-center justify-between px-4 gap-2 relative min-h-12 max-h-15 overflow-hidden">
       {/* Logo ve şirket ismi kaldırıldı, sadece iletişim bilgileri kalacak */}
       <div className="flex flex-col sm:flex-row gap-2 justify-center items-center text-gray-700 dark:text-gray-200 text-xs">
         <span className="flex items-center gap-1">

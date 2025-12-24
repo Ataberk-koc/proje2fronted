@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Header from "./Header";
+import Section2 from "./Section2";
 import { useTranslation } from "react-i18next";
 
 interface SliderItem {
@@ -27,17 +28,20 @@ const fetchSlider = async (lang: string, setLoading: (v: boolean) => void): Prom
   return data.data || [];
 };
 
-function HeaderTransparent() {
+
+function Section2Transparent() {
   return (
     <div className="w-full">
-      <HeaderWrapper />
+      <div>
+        <Section2 />
+      </div>
     </div>
   );
 }
 
-function HeaderWrapper() {
+function HeaderTransparent() {
   return (
-    <div className="bg-white/40 dark:bg-black/40 backdrop-blur-md mb-6">
+    <div className="w-full mb-2">
       <Header />
     </div>
   );
@@ -86,10 +90,7 @@ export default function SliderSection() {
   return (
     <section className="w-full relative">
       <div className="w-full h-screen min-h-105 relative overflow-hidden flex items-center justify-center">
-        <div className="absolute top-0 left-0 w-full z-30">
-          <HeaderTransparent />
-        </div>
-        <picture className="absolute inset-0 w-full h-full">
+        <picture className="absolute inset-0 w-full h-full z-10">
           <source media="(max-width: 768px)" srcSet={slide.mobile_image} />
           <img
             src={slide.desktop_image}
@@ -98,7 +99,13 @@ export default function SliderSection() {
             draggable={false}
           />
         </picture>
-        <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center px-4">
+        {/* Overlay: Section2 and Header, above image but below slider text */}
+        <div className="absolute top-0 left-0 w-full z-20 flex flex-col">
+          <Section2 />
+          <HeaderTransparent />
+        </div>
+        {/* Slider text and black overlay */}
+        <div className="absolute inset-0 flex flex-col justify-center items-center px-4 z-30">
           <div className="max-w-2xl text-center text-white">
             <h2 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
               {slide.title}
@@ -117,7 +124,7 @@ export default function SliderSection() {
           </div>
         </div>
         {slides.length > 1 && (
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-40">
             {slides.map((_: unknown, idx: number) => (
               <button
                 key={idx}

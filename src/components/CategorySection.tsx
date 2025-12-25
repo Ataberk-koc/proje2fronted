@@ -9,9 +9,16 @@ interface Category {
   parent?: { title: string } | null;
 }
 
+
+import { usePathname } from "next/navigation";
+import i18n from "../i18n";
+
 const CategorySection: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const router = useRouter();
+  const pathname = usePathname();
+  // locale'yi path'ten al, yoksa i18n'den al
+  const locale = pathname?.split("/")[1] || i18n.language || "tr";
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/categories")
@@ -29,22 +36,29 @@ const CategorySection: React.FC = () => {
   if (!categories.length) return null;
 
   const handleCategoryClick = (slug: string) => {
-    router.push(`/${slug}`);
+    router.push(`/${locale}/${slug}`);
   };
 
   return (
-    <section className="category-section">
-      <h2 className="category-section-title">Kategoriler</h2>
-      <div className="category-grid">
+    <section className="w-full bg-white py-12 flex flex-col items-center">
+      <h2 className="text-3xl font-bold mb-8 text-blue-900">Kategoriler</h2>
+      <div
+        className="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center"
+      >
         {categories.map((cat) => (
           <div
-            className="category-card"
+            className="category-card bg-white rounded-xl shadow-md border border-zinc-200 flex flex-col items-center p-4 transition-transform hover:scale-105 hover:shadow-lg cursor-pointer w-60 h-56"
             key={cat.id}
             onClick={() => handleCategoryClick(cat.slug)}
-            style={{ cursor: "pointer" }}
           >
-            <img src={cat.banner} alt={cat.title} className="category-banner" />
-            <div className="category-title">{cat.title}</div>
+            <img
+              src={cat.banner}
+              alt={cat.title}
+              className="w-24 h-24 object-cover rounded-full mb-4 border border-blue-200 bg-gray-100"
+            />
+            <div className="text-lg font-semibold text-blue-900 text-center mt-2">
+              {cat.title}
+            </div>
           </div>
         ))}
       </div>

@@ -3,6 +3,7 @@
 // ...existing code...
 import SliderSection from "@/components/SliderSection";
 import AboutSection from "@/components/AboutSection";
+import CategorySection from "@/components/CategorySection";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import i18n from "../i18n";
@@ -57,13 +58,16 @@ export default function Home() {
       <main className="flex flex-col items-center w-full">
         <SliderSection />
         {about && about.banner && (
-          <AboutSection
-            banner={about.banner.startsWith('http') ? about.banner : `http://127.0.0.1:8000/storage/${about.banner}`}
-            content={about.content}
-            description={about.categories[0].description}
-            onReadMore={() => router.push(`/${locale}/hakkimizda`)}
-            showReadMore={true}
-          />
+          <>
+            <AboutSection
+              banner={about.banner.startsWith('http') ? about.banner : `http://127.0.0.1:8000/storage/${about.banner}`}
+              content={about.content}
+              description={about.categories[0].description}
+              onReadMore={() => router.push(`/${locale}/hakkimizda`)}
+              showReadMore={true}
+            />
+            <CategorySection />
+          </>
         )}
       </main>
     </div>

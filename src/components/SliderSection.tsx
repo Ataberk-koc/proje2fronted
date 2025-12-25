@@ -99,14 +99,14 @@ export default function SliderSection() {
             draggable={false}
           />
         </picture>
-        {/* Overlay: Section2 and Header, above image but below slider text */}
-        <div className="absolute top-0 left-0 w-full z-20 flex flex-col">
+        {/* Overlay: Section2 and Header, above image and slider text, clickable */}
+        <div className="absolute top-0 left-0 w-full z-50 flex flex-col pointer-events-auto">
           <Section2 />
           <HeaderTransparent />
         </div>
         {/* Slider text and black overlay */}
-        <div className="absolute inset-0 flex flex-col justify-center items-center px-4 z-30">
-          <div className="max-w-2xl text-center text-white">
+        <div className="absolute inset-0 flex flex-col justify-center items-center px-4 z-30 pointer-events-none">
+          <div className="max-w-2xl text-center text-white pointer-events-auto">
             <h2 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
               {slide.title}
             </h2>
@@ -116,7 +116,7 @@ export default function SliderSection() {
             {slide.button_text && (
               <a
                 href={slide.url || "#"}
-                className="inline-block px-8 py-3 bg-white text-black font-semibold rounded-full shadow hover:bg-zinc-200 transition"
+                className="inline-block px-8 py-3 bg-white text-black font-semibold rounded-full shadow hover:bg-zinc-200 transition pointer-events-auto"
               >
                 {slide.button_text}
               </a>

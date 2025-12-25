@@ -12,17 +12,21 @@ interface AboutSectionProps {
 const AboutSection: React.FC<AboutSectionProps> = ({ banner, content, description, onReadMore, showReadMore = true }) => {
   return (
     <section
-      className="w-full flex-1 flex flex-col md:flex-row items-center gap-8 bg-white rounded-xl shadow-lg p-6 md:p-10 border border-zinc-200 min-h-[90vh] justify-center"
-      style={{ backdropFilter: 'blur(4px)', margin: 0 }}
+      className="w-full flex-1 flex flex-col md:flex-row items-center gap-8 bg-white shadow-lg p-6 md:p-10 border border-zinc-200 min-h-[90vh] justify-center"
+      style={{ backdropFilter: 'blur(4px)', margin: 0, borderRadius: 0 }}
     >
       <div className="flex-1 w-full flex justify-center items-center">
         {banner ? (
-          <img
-            src={banner}
-            alt="Hakkımızda Banner"
-            className="rounded-lg shadow-md w-full max-w-md object-cover"
-            style={{ maxHeight: 340 }}
-          />
+          <div
+            style={{ width: 340, height: 340, background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 16, overflow: 'hidden' }}
+          >
+            <img
+              src={banner}
+              alt="Hakkımızda Banner"
+              className="object-cover"
+              style={{ width: '100%', height: '100%', aspectRatio: '1/1', objectFit: 'cover', background: '#000', borderRadius: 16 }}
+            />
+          </div>
         ) : (
           <div className="text-red-500">Banner bulunamadı</div>
         )}

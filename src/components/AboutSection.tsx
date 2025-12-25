@@ -12,7 +12,7 @@ interface AboutSectionProps {
 const AboutSection: React.FC<AboutSectionProps> = ({ banner, content, description, onReadMore, showReadMore = true }) => {
   return (
     <section
-      className="w-full flex flex-col md:flex-row items-center gap-8 bg-white rounded-xl shadow-lg p-6 md:p-10 border border-zinc-200 min-h-[600px] justify-center"
+      className="w-full flex-1 flex flex-col md:flex-row items-center gap-8 bg-white rounded-xl shadow-lg p-6 md:p-10 border border-zinc-200 min-h-[90vh] justify-center"
       style={{ backdropFilter: 'blur(4px)', margin: 0 }}
     >
       <div className="flex-1 w-full flex justify-center items-center">

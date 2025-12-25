@@ -19,6 +19,7 @@ export default function OnePage() {
     title: string;
     slug: string;
     content: string;
+    banner: string;
     categories: Category[];
   }
   const [about, setAbout] = useState<AboutData | null>(null);
@@ -39,28 +40,18 @@ export default function OnePage() {
     <div className="flex flex-col min-h-screen bg-zinc-50 dark:bg-black">
       <Header />
       <main className="flex flex-col items-center w-full flex-1">
-        {about && about.categories && about.categories[0]?.banner && (
+        {about && about.banner && (
           <AboutSection
-            banner={about.categories[0].banner.startsWith('http') ? about.categories[0].banner : `http://127.0.0.1:8000/storage/${about.categories[0].banner}`}
-            content={about.content}
-            description={about.categories[0].description}
+            banner={about.banner.startsWith('http') ? about.banner : `http://127.0.0.1:8000/storage/${about.banner}`}
+            content={about.categories && about.categories[0]?.description ? about.categories[0].description : about.content}
+            description={about.categories && about.categories[0]?.description}
             onReadMore={() => {}}
+            showReadMore={false}
           />
         )}
-      return (
-        <div className="flex flex-col min-h-screen bg-zinc-50 dark:bg-black">
-          <Header />
-          <main className="flex flex-col items-center w-full flex-1">
-            {about && about.banner && (
-              <AboutSection
-                banner={about.banner.startsWith('http') ? about.banner : `http://127.0.0.1:8000/storage/${about.banner}`}
-                content={about.content}
-                description={about.categories && about.categories[0]?.description}
-                onReadMore={() => {}}
-                showReadMore={false}
-              />
-            )}
-          </main>
-          <Footer />
-        </div>
-      );
+      </main>
+      <Footer />
+    </div>
+  );
+}
+

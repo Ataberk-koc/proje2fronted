@@ -11,8 +11,25 @@ import { useRouter } from "next/navigation";
 
 
 
+interface Category {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  banner: string;
+}
+
+interface AboutData {
+  id: number;
+  title: string;
+  slug: string;
+  content: string;
+  banner: string;
+  categories: Category[];
+}
+
 export default function Home() {
-  const [about, setAbout] = useState<any>(null);
+  const [about, setAbout] = useState<AboutData | null>(null);
   const [lang, setLang] = useState(i18n.language);
   const router = useRouter();
 

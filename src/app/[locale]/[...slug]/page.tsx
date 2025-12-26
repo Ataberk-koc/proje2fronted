@@ -168,10 +168,13 @@ const DynamicPage = () => {
                   }}
                 >
                   {post.banner ? (
-                    <img
+                    <Image
                       src={post.banner}
                       alt={post.title}
+                      width={96}
+                      height={96}
                       className="w-24 h-24 object-cover rounded-full mb-4 border border-blue-200 bg-gray-100"
+                      unoptimized
                     />
                   ) : null}
                   <h2 className="text-lg font-semibold text-blue-900 text-center mt-2 mb-2">{post.title}</h2>

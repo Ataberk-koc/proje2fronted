@@ -31,15 +31,15 @@ const AboutSection: React.FC<AboutSectionProps> = ({ banner, content, descriptio
           <div className="text-red-500">Banner bulunamadı</div>
         )}
       </div>
-      <div className="flex-2 w-full flex flex-col gap-4">
+      <div className="flex-2 w-full flex flex-col gap-4 text-center md:text-left items-center md:items-start">
         {description && (
-          <div className="text-lg text-black font-semibold" dangerouslySetInnerHTML={{ __html: description }} />
+          <div className="text-lg text-black font-semibold w-full" dangerouslySetInnerHTML={{ __html: description }} />
         )}
-        <div className="text-base text-black" dangerouslySetInnerHTML={{ __html: content }} />
+        <div className="text-base text-black w-full" dangerouslySetInnerHTML={{ __html: content }} />
         {showReadMore && (
           <button
             onClick={onReadMore}
-            className="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow transition-all duration-200 self-start"
+            className="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow transition-all duration-200 self-center md:self-start"
           >
             Devamını Oku
           </button>

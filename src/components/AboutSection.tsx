@@ -17,16 +17,16 @@ const AboutSection: React.FC<AboutSectionProps> = ({
 }) => {
   return (
     <section
-      className="w-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 bg-gradient-to-br from-blue-50 to-white shadow-2xl p-6 md:p-12 border border-blue-100 min-h-[90vh] rounded-3xl mx-auto"
+      className="w-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 bg-linear-to-br from-blue-50 to-white shadow-2xl p-6 md:p-12 border border-blue-100 min-h-[90vh] rounded-3xl mx-auto"
       style={{ backdropFilter: "blur(6px)", margin: 0 }}
     >
       {/* Banner */}
-      <div className="flex-shrink-0 flex justify-center items-center md:mb-0 md:mr-0">
+      <div className="shrink-0 flex justify-center items-center md:mb-0 md:mr-0">
         {banner ? (
           <img
             src={banner}
             alt="Hakkımızda Banner"
-            className="w-80 h-80 md:w-[480px] md:h-[480px] object-cover rounded-full border-8 border-blue-200 shadow-2xl bg-white transition-all duration-300 hover:scale-105 hover:border-blue-400"
+            className="w-80 h-80 md:w-120 md:h-120 object-cover rounded-full border-8 border-blue-200 shadow-2xl bg-white transition-all duration-300 hover:scale-105 hover:border-blue-400"
             style={{ boxShadow: '0 12px 48px 0 rgba(31, 38, 135, 0.18)' }}
           />
         ) : (

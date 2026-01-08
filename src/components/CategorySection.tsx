@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 interface Category {
   id: number;
@@ -39,7 +40,7 @@ const CategorySection: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-gradient-to-b from-blue-50 to-white py-16 flex flex-col items-center">
+    <section className="w-full bg-linear-to-b from-blue-50 to-white py-16 flex flex-col items-center">
       <h2 className="text-4xl font-extrabold mb-10 text-blue-900 tracking-tight drop-shadow-lg uppercase">Kategoriler</h2>
       <div
         className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 justify-items-center"
@@ -51,9 +52,12 @@ const CategorySection: React.FC = () => {
             onClick={() => handleCategoryClick(cat.slug)}
           >
             <div className="relative flex items-center justify-center mb-6">
-              <img
+              <Image
                 src={cat.banner}
                 alt={cat.title}
+                width={144}
+                height={144}
+                unoptimized
                 className="w-36 h-36 object-cover rounded-full border-4 border-blue-300 bg-gray-100 shadow-lg group-hover:border-blue-500 transition-all duration-300"
                 style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)' }}
               />

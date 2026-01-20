@@ -1,5 +1,4 @@
 "use client";
-import Header from "@/components/Header";
 import AboutSection from "@/components/AboutSection";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
@@ -156,7 +155,6 @@ const DynamicPage = () => {
 
   return (
     <div className={`flex flex-col min-h-screen ${isPostDetail ? 'bg-white' : 'bg-linear-to-b from-white via-blue-50 to-white dark:bg-black'}`}>
-      <Header />
       <main className="flex flex-col items-center w-full flex-1">
         {/* Hakkımızda sayfası */}
         {pageData && (

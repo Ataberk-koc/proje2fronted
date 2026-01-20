@@ -41,7 +41,7 @@ const CategorySection: React.FC = () => {
 
   return (
     <section className="w-full bg-transparent py-20 md:py-32 flex flex-col items-center">
-      <h2 className="category-title-large mb-16 md:mb-20 text-center">Kategoriler</h2>
+      <h2 className="category-title-large mb-16 md:mb-20 text-center">{i18n.t("categories")}</h2>
       <div
         className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-12 justify-items-center px-4 md:px-0"
       >

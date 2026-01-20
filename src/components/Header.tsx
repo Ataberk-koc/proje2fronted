@@ -89,18 +89,18 @@ function Header() {
 		}
 	};
 	return (
-		<header className="w-full py-3 bg-blue-100 dark:bg-blue-900 shadow px-4 sm:px-6 min-h-16 max-h-20 z-99999">
+		<header className="w-full py-4 bg-linear-to-r from-blue-600 to-blue-500 dark:from-blue-900 dark:to-blue-800 shadow-lg px-4 sm:px-6 min-h-16 max-h-20 z-99999 border-b border-blue-400/20">
 			<div className="flex items-center justify-between w-full">
-				<Link href="/" className="flex items-center gap-3 shrink-0 hover:opacity-80 transition-opacity">
+				<Link href="/" className="flex items-center gap-3 shrink-0 hover:opacity-90 transition-all duration-300 group">
 					<Image
 						src={getLogoUrl(settings?.site_white_logo || null)}
 						alt="Logo"
 						width={40}
 						height={40}
-						className="rounded object-contain bg-white"
+						className="rounded-lg object-contain bg-white p-1 group-hover:shadow-lg transition-all duration-300"
 						unoptimized
 					/>
-					<span className="text-lg sm:text-xl font-bold text-blue-900 dark:text-blue-100">
+					<span className="text-lg sm:text-xl font-bold text-white dark:text-blue-100">
 						{settings?.site_name || "Proje2"}
 					</span>
 				</Link>
@@ -110,22 +110,33 @@ function Header() {
 					onClick={() => setMobileMenuOpen((v) => !v)}
 					aria-label="Menüyü Aç/Kapat"
 				>
-					<span className={`block w-6 h-0.5 bg-blue-900 dark:bg-blue-100 mb-1 transition-all duration-200 ${mobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
-					<span className={`block w-6 h-0.5 bg-blue-900 dark:bg-blue-100 mb-1 transition-all duration-200 ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
-					<span className={`block w-6 h-0.5 bg-blue-900 dark:bg-blue-100 transition-all duration-200 ${mobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
+					<span className={`block w-6 h-0.5 bg-white mb-1 transition-all duration-200 ${mobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
+					<span className={`block w-6 h-0.5 bg-white mb-1 transition-all duration-200 ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
+					<span className={`block w-6 h-0.5 bg-white transition-all duration-200 ${mobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
 				</button>
 				{/* Desktop nav */}
-				<nav className="hidden sm:flex flex-nowrap gap-4 items-center cursor-pointer ml-auto">
-					<Link href="/" className="px-4 py-2 rounded-full bg-white/70 dark:bg-blue-950/70 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800">Anasayfa</Link>
-					<Link href={`/${locale}/hakkimizda`} className="px-4 py-2 rounded-full bg-white/70 dark:bg-blue-950/70 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800">Hakkımızda</Link>
+				<nav className="hidden sm:flex flex-nowrap gap-8 items-center cursor-pointer ml-auto">
+					<Link href="/" className="text-white font-medium hover:text-blue-200 transition-colors duration-300 relative group">
+						Anasayfa
+						<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+					</Link>
+					<Link href={`/${locale}/hakkimizda`} className="text-white font-medium hover:text-blue-200 transition-colors duration-300 relative group">
+						Hakkımızda
+						<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+					</Link>
+					<Link href={`/${locale}/contact`} className="text-white font-medium hover:text-blue-200 transition-colors duration-300 relative group">
+						İletişim
+						<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+					</Link>
 					<div className="relative" ref={dropdownRef}>
 						<button
-							className="px-4 py-2 rounded-full bg-white/70 dark:bg-blue-950/70 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800 flex items-center gap-2"
+							className="text-white font-medium hover:text-blue-200 transition-colors duration-300 relative group flex items-center gap-2"
 							onClick={() => setDropdownOpen((v) => !v)}
 							type="button"
 						>
 							Hizmetlerimiz
 							<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6"/></svg>
+							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 						</button>
 						{dropdownOpen && (
 							  <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-2xl border border-blue-200 z-100000 py-2 animate-fade-in">
@@ -145,15 +156,15 @@ function Header() {
 							</div>
 						)}
 					</div>
-					<Link href="/iletisim" className="px-4 py-2 rounded-full bg-white/70 dark:bg-blue-950/70 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800">İletişim</Link>
 					{/* Dil Dropdown */}
 					<div className="relative" ref={languageDropdownRef}>
 						<button
 							onClick={() => setLanguageDropdownOpen((v) => !v)}
-							className="px-4 py-2 rounded-full bg-white/70 dark:bg-blue-950/70 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800 flex items-center gap-2"
+							className="text-white font-medium hover:text-blue-200 transition-colors duration-300 relative group flex items-center gap-2"
 						>
 							{locale === 'tr' ? 'Türkçe' : 'English'}
 							<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6"/></svg>
+							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 						</button>
 						{languageDropdownOpen && (
 							<div className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-blue-950 rounded-lg shadow-2xl border border-blue-200 z-100000 py-2">
@@ -195,16 +206,27 @@ function Header() {
 						<button className="self-end mb-4" onClick={() => setMobileMenuOpen(false)} aria-label="Menüyü Kapat">
 							<svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M6 18L18 6"/></svg>
 						</button>
-						<Link href="/" className="px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800" onClick={() => setMobileMenuOpen(false)}>Anasayfa</Link>
-						<Link href={`/${locale}/hakkimizda`} className="px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800" onClick={() => setMobileMenuOpen(false)}>Hakkımızda</Link>
+						<Link href="/" className="text-blue-900 dark:text-blue-100 font-medium hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-300 relative group" onClick={() => setMobileMenuOpen(false)}>
+							Anasayfa
+							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+						</Link>
+						<Link href={`/${locale}/hakkimizda`} className="text-blue-900 dark:text-blue-100 font-medium hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-300 relative group" onClick={() => setMobileMenuOpen(false)}>
+							Hakkımızda
+							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+						</Link>
+						<Link href={`/${locale}/contact`} className="text-blue-900 dark:text-blue-100 font-medium hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-300 relative group" onClick={() => setMobileMenuOpen(false)}>
+							İletişim
+							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+						</Link>
 						<div className="relative">
 							<button
-								className="w-full px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100 font-semibold shadow border border-blue-300 dark:border-blue-800 flex items-center gap-2"
+								className="w-full text-left text-blue-900 dark:text-blue-100 font-medium hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-300 relative group flex items-center gap-2"
 								onClick={() => setDropdownOpen((v) => !v)}
 								type="button"
 							>
 								Hizmetlerimiz
 								<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6"/></svg>
+								<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 							</button>
 							{dropdownOpen && (
 								<div className="absolute left-0 mt-2 w-full bg-white dark:bg-blue-950 rounded-lg shadow-2xl border border-blue-200 z-100000 py-2 animate-fade-in">
@@ -212,27 +234,30 @@ function Header() {
 										<div className="px-4 py-2 text-gray-500">Kategori bulunamadı</div>
 									)}
 									{categories.map((cat) => (
-										<Link
-											key={cat.id}
-											href={`/${locale}/${cat.slug}`}
-											className="block w-full text-left px-4 py-2 hover:bg-blue-50 text-blue-900 font-medium transition-colors"
-											onClick={() => { setDropdownOpen(false); setMobileMenuOpen(false); }}
-										>
-											{cat.title}
-										</Link>
+											<button
+												key={cat.id}
+												onClick={() => {
+													router.push(`/${locale}/${cat.slug}`);
+													setDropdownOpen(false);
+													setMobileMenuOpen(false);
+												}}
+												className="block w-full text-left px-4 py-2 font-medium transition-colors text-blue-900 dark:text-blue-100 hover:bg-blue-50 dark:hover:bg-blue-800"
+											>
+												{cat.title}
+											</button>
 									))}
 								</div>
 							)}
 						</div>
-						<Link href="/iletisim" className="px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800" onClick={() => setMobileMenuOpen(false)}>İletişim</Link>
-						{/* Dil Dropdown Mobile */}
+					{/* Dil Dropdown Mobile */}
 						<div className="relative">
 							<button
 								onClick={() => setLanguageDropdownOpen((v) => !v)}
-								className="w-full px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800 flex items-center gap-2 justify-between"
+								className="w-full text-left text-blue-900 dark:text-blue-100 font-medium hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-300 relative group flex items-center gap-2 justify-between"
 							>
 								{locale === 'tr' ? 'Türkçe' : 'English'}
 								<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6"/></svg>
+								<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 							</button>
 							{languageDropdownOpen && (
 								<div className="absolute left-0 mt-2 w-full bg-white dark:bg-blue-950 rounded-lg shadow-2xl border border-blue-200 z-100000 py-2">

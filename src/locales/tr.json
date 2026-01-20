@@ -1,4 +1,8 @@
 {
   "hello": "Merhaba!",
-  "welcome": "i18next entegrasyonuna hoş geldin!"
+  "welcome": "i18next entegrasyonuna hoş geldin!",
+  "categories": "Kategoriler",
+  "contact": "İletişim",
+  "submit": "Gönder",
+  "submitted": "Başarıyla gönderildi!"
 }

@@ -1,4 +1,8 @@
 {
   "hello": "Hello!",
-  "welcome": "Welcome to i18next integration!"
+  "welcome": "Welcome to i18next integration!",
+  "categories": "Categories",
+  "contact": "Contact",
+  "submit": "Submit",
+  "submitted": "Successfully submitted!"
 }

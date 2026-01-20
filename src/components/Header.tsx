@@ -108,24 +108,23 @@ function Header() {
 				<button
 					className="sm:hidden flex flex-col justify-center items-center w-10 h-10 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
 					onClick={() => setMobileMenuOpen((v) => !v)}
-					aria-label="Menüyü Aç/Kapat"
+					aria-label={locale === 'en' ? 'Toggle menu' : 'Menüyü Aç/Kapat'}
 				>
 					<span className={`block w-6 h-0.5 bg-white mb-1 transition-all duration-200 ${mobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
 					<span className={`block w-6 h-0.5 bg-white mb-1 transition-all duration-200 ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
 					<span className={`block w-6 h-0.5 bg-white transition-all duration-200 ${mobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
 				</button>
-				{/* Desktop nav */}
 				<nav className="hidden sm:flex flex-nowrap gap-8 items-center cursor-pointer ml-auto">
 					<Link href="/" className="text-white font-medium hover:text-blue-200 transition-colors duration-300 relative group">
-						Anasayfa
+						{locale === 'en' ? 'Home' : 'Anasayfa'}
 						<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 					</Link>
 					<Link href={`/${locale}/hakkimizda`} className="text-white font-medium hover:text-blue-200 transition-colors duration-300 relative group">
-						Hakkımızda
+					{locale === 'en' ? 'About Us' : 'Hakkımızda'}
 						<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 					</Link>
 					<Link href={`/${locale}/contact`} className="text-white font-medium hover:text-blue-200 transition-colors duration-300 relative group">
-						İletişim
+					{locale === 'en' ? 'Contact' : 'İletişim'}
 						<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 					</Link>
 					<div className="relative" ref={dropdownRef}>
@@ -134,14 +133,14 @@ function Header() {
 							onClick={() => setDropdownOpen((v) => !v)}
 							type="button"
 						>
-							Hizmetlerimiz
+							{locale === 'en' ? 'Services' : 'Hizmetlerimiz'}
 							<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6"/></svg>
 							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 						</button>
 						{dropdownOpen && (
 							  <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-2xl border border-blue-200 z-100000 py-2 animate-fade-in">
 								{categories.length === 0 && (
-									<div className="px-4 py-2 text-gray-500">Kategori bulunamadı</div>
+								<div className="px-4 py-2 text-gray-500">{locale === 'en' ? 'No categories found' : 'Kategori bulunamadı'}</div>
 								)}
 								{categories.map((cat) => (
 									<Link
@@ -203,19 +202,19 @@ function Header() {
 			{mobileMenuOpen && (
 				<div className="sm:hidden fixed inset-0 bg-black/40 z-100000" onClick={() => setMobileMenuOpen(false)}>
 					<div className="absolute top-0 right-0 w-64 h-full bg-white dark:bg-blue-950 shadow-lg p-6 flex flex-col gap-4" onClick={e => e.stopPropagation()}>
-						<button className="self-end mb-4" onClick={() => setMobileMenuOpen(false)} aria-label="Menüyü Kapat">
+						<button className="self-end mb-4" onClick={() => setMobileMenuOpen(false)} aria-label={locale === 'en' ? 'Close menu' : 'Menüyü Kapat'}>
 							<svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M6 18L18 6"/></svg>
 						</button>
 						<Link href="/" className="text-blue-900 dark:text-blue-100 font-medium hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-300 relative group" onClick={() => setMobileMenuOpen(false)}>
-							Anasayfa
+						{locale === 'en' ? 'Home' : 'Anasayfa'}
 							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 						</Link>
 						<Link href={`/${locale}/hakkimizda`} className="text-blue-900 dark:text-blue-100 font-medium hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-300 relative group" onClick={() => setMobileMenuOpen(false)}>
-							Hakkımızda
+						{locale === 'en' ? 'About Us' : 'Hakkımızda'}
 							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 						</Link>
 						<Link href={`/${locale}/contact`} className="text-blue-900 dark:text-blue-100 font-medium hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-300 relative group" onClick={() => setMobileMenuOpen(false)}>
-							İletişim
+						{locale === 'en' ? 'Contact' : 'İletişim'}
 							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 						</Link>
 						<div className="relative">
@@ -224,14 +223,14 @@ function Header() {
 								onClick={() => setDropdownOpen((v) => !v)}
 								type="button"
 							>
-								Hizmetlerimiz
+								{locale === 'en' ? 'Services' : 'Hizmetlerimiz'}
 								<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6"/></svg>
 								<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 							</button>
 							{dropdownOpen && (
 								<div className="absolute left-0 mt-2 w-full bg-white dark:bg-blue-950 rounded-lg shadow-2xl border border-blue-200 z-100000 py-2 animate-fade-in">
 									{categories.length === 0 && (
-										<div className="px-4 py-2 text-gray-500">Kategori bulunamadı</div>
+									<div className="px-4 py-2 text-gray-500">{locale === 'en' ? 'No categories found' : 'Kategori bulunamadı'}</div>
 									)}
 									{categories.map((cat) => (
 											<button

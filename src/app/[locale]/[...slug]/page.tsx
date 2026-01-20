@@ -41,7 +41,7 @@ const DynamicPage = () => {
   const slugArr = params?.slug && Array.isArray(params.slug) ? params.slug : [];
   const currentSlug = slugArr[0] || null;
   // Post slug: ilk segment haricinde tüm segmentleri birleştir
-  let postSlug = slugArr.length > 1 ? slugArr.slice(1).join('-') : null;
+  let postSlug = slugArr.length > 1 ? slugArr.slice(1).join('-') : slugArr[0];
   // Slug'ı normalize et: lowercase ve boşluk → tire
   if (postSlug) {
     postSlug = postSlug.toLowerCase().replace(/\s+/g, '-');
@@ -73,7 +73,7 @@ const DynamicPage = () => {
       })
         .then((res) => res.json())
         .then((data) => setPageData(data.data));
-    } else if (postSlug) {
+    } else {
       // Post detayına gidildi - tüm postları fetch edip slug ile eşleştir
       fetch(`http://127.0.0.1:8000/api/posts`, {
         headers: { "Accept-Language": locale }
@@ -81,17 +81,28 @@ const DynamicPage = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data && data.data) {
-            const foundPost = data.data.find((post: Post) => post.slug === postSlug);
+            const foundPost = data.data.find((post: Post) => post.slug === postSlug || post.slug === currentSlug);
             if (foundPost) {
               setPageData(null);
               setCategoryPosts([]);
               setNotFound(false);
               setPostDetail(foundPost);
             } else {
-              setPageData(null);
-              setCategoryPosts([]);
-              setPostDetail(null);
-              setNotFound(true);
+              // Kategori olarak kontrol et
+              const filtered = data.data.filter((post: Post) =>
+                post.categories && post.categories.some((cat: Category) => cat.slug === currentSlug)
+              );
+              if (filtered.length > 0) {
+                setPageData(null);
+                setPostDetail(null);
+                setCategoryPosts(filtered);
+                setNotFound(false);
+              } else {
+                setPageData(null);
+                setCategoryPosts([]);
+                setPostDetail(null);
+                setNotFound(true);
+              }
             }
           } else {
             setPageData(null);
@@ -105,32 +116,6 @@ const DynamicPage = () => {
           setPageData(null);
           setCategoryPosts([]);
           setPostDetail(null);
-          setNotFound(true);
-        });
-    } else {
-      // Kategoriye göre postları çek
-      fetch(`http://127.0.0.1:8000/api/posts`, {
-        headers: { "Accept-Language": locale }
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setPageData(null);
-          setPostDetail(null);
-          if (data && data.data) {
-            const filtered = data.data.filter((post: Post) =>
-              post.categories.some((cat: Category) => cat.slug === currentSlug)
-            );
-            setCategoryPosts(filtered);
-            setNotFound(filtered.length === 0);
-          } else {
-            setCategoryPosts([]);
-            setNotFound(true);
-          }
-        })
-        .catch(() => {
-          setPageData(null);
-          setPostDetail(null);
-          setCategoryPosts([]);
           setNotFound(true);
         });
     }
@@ -192,13 +177,13 @@ const DynamicPage = () => {
               <div className="max-w-4xl mx-auto px-4 md:px-8">
                 {(postDetail.description || (postDetail.categories && postDetail.categories[0]?.description)) && (
                   <div className="mb-12 pb-12 border-b border-gray-200">
-                    <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6">Özet</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6">{i18n.language === 'en' ? 'Summary' : 'Özet'}</h2>
                     <div className="text-lg text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: postDetail.description || postDetail.categories[0]?.description || '' }} />
                   </div>
                 )}
                 {postDetail.content && (
                   <div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6">Detaylar</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6">{i18n.language === 'en' ? 'Details' : 'Detaylar'}</h2>
                     <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: postDetail.content }} />
                   </div>
                 )}

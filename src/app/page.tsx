@@ -4,7 +4,9 @@
 import SliderSection from "@/components/SliderSection";
 import AboutSection from "@/components/AboutSection";
 import CategorySection from "@/components/CategorySection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
+import BlogSection from "@/components/BlogSection";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import i18n from "../i18n";
@@ -72,10 +74,16 @@ export default function Home() {
             <div className="w-full">
               <CategorySection />
             </div>
-              <div className="w-full">
-                {/* Contact Section */}
-                <ContactSection />
-              </div>
+            <div className="w-full">
+              {/* Contact Section */}
+              <ContactSection />
+            </div>
+            <div className="w-full">
+              <TestimonialsSection />
+            </div>
+            <div className="w-full">
+              <BlogSection />
+            </div>
           </>
         )}
       </main>

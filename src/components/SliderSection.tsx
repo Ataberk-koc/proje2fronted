@@ -28,17 +28,6 @@ const fetchSlider = async (lang: string, setLoading: (v: boolean) => void): Prom
   return data.data || [];
 };
 
-
-function Section2Transparent() {
-  return (
-    <div className="w-full">
-      <div>
-        <Section2 />
-      </div>
-    </div>
-  );
-}
-
 function HeaderTransparent() {
   return (
     <div className="w-full mb-2">

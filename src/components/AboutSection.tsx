@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface AboutSectionProps {
   banner: string;
@@ -15,6 +16,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
   onReadMore,
   showReadMore = true,
 }) => {
+  const { i18n } = useTranslation();
+
   return (
     <section
       className="w-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 bg-transparent p-8 md:p-16 min-h-[85vh] mx-auto"
@@ -35,7 +38,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
       </div>
       {/* Right Side: Title, Description, Content, Button */}
       <div className="flex flex-col items-center md:items-start justify-center gap-6 max-w-2xl w-auto">
-        <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-2 text-center md:text-left leading-tight">Hakkımızda</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-2 text-center md:text-left leading-tight">{i18n.language === 'en' ? 'About Us' : 'Hakkımızda'}</h1>
         {description && (
           <div
             className="text-base md:text-lg text-gray-700 font-normal text-center md:text-left mb-2 leading-relaxed"
@@ -48,7 +51,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
             onClick={onReadMore}
             className="mt-4 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all duration-200 text-base"
           >
-            Devamını Oku
+            {i18n.language === 'en' ? 'Read More' : 'Devamını Oku'}
           </button>
         )}
       </div>

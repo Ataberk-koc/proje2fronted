@@ -40,14 +40,14 @@ const CategorySection: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-linear-to-b from-blue-50 to-white py-16 flex flex-col items-center">
-      <h2 className="text-4xl font-extrabold mb-10 text-blue-900 tracking-tight drop-shadow-lg uppercase">Kategoriler</h2>
+    <section className="w-full bg-transparent py-20 md:py-32 flex flex-col items-center">
+      <h2 className="category-title-large mb-16 md:mb-20 text-center">Kategoriler</h2>
       <div
-        className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 justify-items-center"
+        className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-12 justify-items-center px-4 md:px-0"
       >
         {categories.map((cat) => (
           <div
-            className="category-card bg-white rounded-3xl shadow-xl border border-blue-100 flex flex-col items-center p-6 transition-transform hover:scale-105 hover:shadow-2xl cursor-pointer w-72 h-72 group"
+            className="bg-white rounded-2xl shadow-md hover:shadow-xl border border-gray-100 flex flex-col items-center p-6 transition-all duration-300 hover:scale-105 cursor-pointer w-72 h-80 group"
             key={cat.id}
             onClick={() => handleCategoryClick(cat.slug)}
           >
@@ -55,15 +55,15 @@ const CategorySection: React.FC = () => {
               <Image
                 src={cat.banner}
                 alt={cat.title}
-                width={144}
-                height={144}
+                width={160}
+                height={160}
                 unoptimized
-                className="w-36 h-36 object-cover rounded-full border-4 border-blue-300 bg-gray-100 shadow-lg group-hover:border-blue-500 transition-all duration-300"
-                style={{ boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)' }}
+                className="w-40 h-40 object-cover rounded-xl bg-gray-100 shadow-sm group-hover:shadow-md transition-all duration-300"
+                style={{ boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.1)' }}
               />
-              <span className="absolute bottom-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full shadow-md opacity-80 group-hover:opacity-100 transition">Yeni</span>
+              <span className="absolute bottom-0 right-0 bg-blue-500 text-white text-xs px-2 py-1 rounded-full shadow-sm opacity-80 group-hover:opacity-100 transition">Yeni</span>
             </div>
-            <div className="text-xl font-bold text-blue-900 text-center mt-2 drop-shadow-sm group-hover:text-blue-700 transition-all duration-300">
+            <div className="text-lg font-semibold text-gray-800 text-center mt-3 group-hover:text-blue-600 transition-colors duration-300">
               {cat.title}
             </div>
           </div>

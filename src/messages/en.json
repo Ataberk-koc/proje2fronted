@@ -1,4 +1,5 @@
 {
   "hello": "Hello!",
-  "welcome": "Welcome to Next.js with next-intl!"
+  "welcome": "Welcome to Next.js with next-intl!",
+  "contents": "Contents"
 }

@@ -17,8 +17,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({
 }) => {
   return (
     <section
-      className="w-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 bg-linear-to-br from-blue-50 to-white shadow-2xl p-6 md:p-12 border border-blue-100 min-h-[90vh] rounded-3xl mx-auto"
-      style={{ backdropFilter: "blur(6px)", margin: 0 }}
+      className="w-full flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 bg-transparent p-8 md:p-16 min-h-[85vh] mx-auto"
+      style={{ margin: 0 }}
     >
       {/* Banner */}
       <div className="shrink-0 flex justify-center items-center md:mb-0 md:mr-0">
@@ -26,19 +26,19 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           <img
             src={banner}
             alt="Hakkımızda Banner"
-            className="w-80 h-80 md:w-120 md:h-120 object-cover rounded-full border-8 border-blue-200 shadow-2xl bg-white transition-all duration-300 hover:scale-105 hover:border-blue-400"
-            style={{ boxShadow: '0 12px 48px 0 rgba(31, 38, 135, 0.18)' }}
+            className="w-80 h-80 md:w-96 md:h-96 object-cover rounded-2xl shadow-lg bg-white transition-all duration-300 hover:scale-105"
+            style={{ boxShadow: '0 10px 40px 0 rgba(59, 130, 246, 0.15)' }}
           />
         ) : (
           <div className="text-red-500">Banner bulunamadı</div>
         )}
       </div>
       {/* Right Side: Title, Description, Content, Button */}
-      <div className="flex flex-col items-center md:items-start justify-center gap-5 max-w-2xl w-auto">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-blue-900 drop-shadow-lg mb-2 text-center md:text-left">Hakkımızda</h1>
+      <div className="flex flex-col items-center md:items-start justify-center gap-6 max-w-2xl w-auto">
+        <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-2 text-center md:text-left leading-tight">Hakkımızda</h1>
         {description && (
           <div
-            className="text-lg md:text-xl text-gray-800 font-medium text-center md:text-left mb-2"
+            className="text-base md:text-lg text-gray-700 font-normal text-center md:text-left mb-2 leading-relaxed"
             dangerouslySetInnerHTML={{ __html: description }}
           />
         )}
@@ -46,7 +46,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         {showReadMore && (
           <button
             onClick={onReadMore}
-            className="mt-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg transition-all duration-200 text-lg"
+            className="mt-4 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all duration-200 text-base"
           >
             Devamını Oku
           </button>

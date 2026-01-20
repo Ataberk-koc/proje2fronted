@@ -8,6 +8,7 @@ import { Settings } from "../types/settings";
 import { Category } from "../types/category";
 import { usePathname } from "next/navigation";
 import i18n from "../i18n";
+import { useRouter } from "next/navigation";
 const STORAGE_URL = "http://127.0.0.1:8000/storage/";
 
 function Header() {
@@ -15,9 +16,11 @@ function Header() {
 	const [settings, setSettings] = useState<Settings | null>(null);
 	const [categories, setCategories] = useState<Category[]>([]);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
-	// const [dropdownPos, setDropdownPos] = useState<{left: number, top: number} | null>(null);
+	const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
+	const languageDropdownRef = useRef<HTMLDivElement>(null);
 	const pathname = usePathname();
+	const router = useRouter();
 	useEffect(() => {
 		fetch("/api/settings")
 			.then((res) => res.json())
@@ -40,18 +43,14 @@ function Header() {
 				if (data && Array.isArray(data.data)) {
 					// parent varsa ve parent.title "hakkimizda" olanları filtrele
 					const filtered = data.data.filter((cat: Category) => cat.parent && (cat.parent as { title: string }).title === "hakkimizda");
-					console.log("Tüm kategorilerin parent.title değerleri:", data.data.map((cat: Category) => cat.parent && (cat.parent as { title: string }).title));
 					setCategories(filtered);
-					console.log("Dropdown için hakkimizda alt kategoriler:", filtered);
 				} else {
 					setCategories([]);
-					console.log("Kategori verisi boş veya beklenmeyen formatta geldi.");
 				}
 			})
 			.catch((err) => {
 				setCategories([]);
 				alert("Kategoriler API'den çekilemedi!\nHata: " + err.message + "\nAPI yolu: /api/categories");
-				console.log("Kategoriler çekilemedi:", err);
 			});
 	}, []);
 
@@ -61,14 +60,17 @@ function Header() {
 			if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
 				setDropdownOpen(false);
 			}
+			if (languageDropdownRef.current && !languageDropdownRef.current.contains(e.target as Node)) {
+				setLanguageDropdownOpen(false);
+			}
 		}
-		if (dropdownOpen) {
+		if (dropdownOpen || languageDropdownOpen) {
 			document.addEventListener("mousedown", handleClick);
 		} else {
 			document.removeEventListener("mousedown", handleClick);
 		}
 		return () => document.removeEventListener("mousedown", handleClick);
-	}, [dropdownOpen]);
+	}, [dropdownOpen, languageDropdownOpen]);
 
 	const getLogoUrl = (path: string | null | undefined) => {
 		if (!path || path === "null") return "/logo.svg";
@@ -77,6 +79,15 @@ function Header() {
 	};
 	// locale'yi path'ten al, yoksa i18n'den al
 	const locale = pathname?.split("/")[1] || i18n.language || "tr";
+
+	const changeLanguage = (lng: string) => {
+		i18n.changeLanguage(lng);
+		// Sayfayı yeni dilde tekrar yükle
+		if (pathname) {
+			const newPathname = pathname.replace(/^\/(tr|en)/, `/${lng}`);
+			router.push(newPathname || `/${lng}`);
+		}
+	};
 	return (
 		<header className="w-full py-3 bg-blue-100 dark:bg-blue-900 shadow px-4 sm:px-6 min-h-16 max-h-20 z-99999">
 			<div className="flex items-center justify-between w-full">
@@ -135,6 +146,46 @@ function Header() {
 						)}
 					</div>
 					<Link href="/iletisim" className="px-4 py-2 rounded-full bg-white/70 dark:bg-blue-950/70 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800">İletişim</Link>
+					{/* Dil Dropdown */}
+					<div className="relative" ref={languageDropdownRef}>
+						<button
+							onClick={() => setLanguageDropdownOpen((v) => !v)}
+							className="px-4 py-2 rounded-full bg-white/70 dark:bg-blue-950/70 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800 flex items-center gap-2"
+						>
+							{locale === 'tr' ? 'Türkçe' : 'English'}
+							<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6"/></svg>
+						</button>
+						{languageDropdownOpen && (
+							<div className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-blue-950 rounded-lg shadow-2xl border border-blue-200 z-100000 py-2">
+								<button
+									onClick={() => {
+										changeLanguage('tr');
+										setLanguageDropdownOpen(false);
+									}}
+									className={`block w-full text-left px-4 py-2 font-medium transition-colors ${
+										locale === 'tr'
+											? 'bg-blue-100 dark:bg-blue-800 text-blue-900 dark:text-blue-100'
+											: 'text-blue-900 dark:text-blue-100 hover:bg-blue-50 dark:hover:bg-blue-800'
+									}`}
+								>
+									Türkçe
+								</button>
+								<button
+									onClick={() => {
+										changeLanguage('en');
+										setLanguageDropdownOpen(false);
+									}}
+									className={`block w-full text-left px-4 py-2 font-medium transition-colors ${
+										locale === 'en'
+											? 'bg-blue-100 dark:bg-blue-800 text-blue-900 dark:text-blue-100'
+											: 'text-blue-900 dark:text-blue-100 hover:bg-blue-50 dark:hover:bg-blue-800'
+									}`}
+								>
+									English
+								</button>
+							</div>
+						)}
+					</div>
 				</nav>
 			</div>
 			{/* Mobile menu drawer */}
@@ -174,6 +225,48 @@ function Header() {
 							)}
 						</div>
 						<Link href="/iletisim" className="px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800" onClick={() => setMobileMenuOpen(false)}>İletişim</Link>
+						{/* Dil Dropdown Mobile */}
+						<div className="relative">
+							<button
+								onClick={() => setLanguageDropdownOpen((v) => !v)}
+								className="w-full px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100 font-semibold shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-200 border border-blue-300 dark:border-blue-800 flex items-center gap-2 justify-between"
+							>
+								{locale === 'tr' ? 'Türkçe' : 'English'}
+								<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6"/></svg>
+							</button>
+							{languageDropdownOpen && (
+								<div className="absolute left-0 mt-2 w-full bg-white dark:bg-blue-950 rounded-lg shadow-2xl border border-blue-200 z-100000 py-2">
+									<button
+										onClick={() => {
+											changeLanguage('tr');
+											setLanguageDropdownOpen(false);
+											setMobileMenuOpen(false);
+										}}
+										className={`block w-full text-left px-4 py-2 font-medium transition-colors ${
+											locale === 'tr'
+												? 'bg-blue-100 dark:bg-blue-800 text-blue-900 dark:text-blue-100'
+												: 'text-blue-900 dark:text-blue-100 hover:bg-blue-50 dark:hover:bg-blue-800'
+										}`}
+									>
+										Türkçe
+									</button>
+									<button
+										onClick={() => {
+											changeLanguage('en');
+											setLanguageDropdownOpen(false);
+											setMobileMenuOpen(false);
+										}}
+										className={`block w-full text-left px-4 py-2 font-medium transition-colors ${
+											locale === 'en'
+												? 'bg-blue-100 dark:bg-blue-800 text-blue-900 dark:text-blue-100'
+												: 'text-blue-900 dark:text-blue-100 hover:bg-blue-50 dark:hover:bg-blue-800'
+										}`}
+									>
+										English
+									</button>
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
 			)}

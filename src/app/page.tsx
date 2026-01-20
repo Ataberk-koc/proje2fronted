@@ -54,19 +54,23 @@ export default function Home() {
   // locale'yi path'ten al
   const locale = pathname.split("/")[1] || "tr";
   return (
-    <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-col items-center w-full">
+    <div className="flex min-h-screen flex-col bg-white font-sans dark:bg-black">
+      <main className="flex flex-col items-center w-full bg-linear-to-b from-white via-blue-50 to-white">
         <SliderSection />
         {about && about.banner && (
           <>
-            <AboutSection
-              banner={about.banner.startsWith('http') ? about.banner : `http://127.0.0.1:8000/storage/${about.banner}`}
-              content={about.content}
-              description={about.categories[0].description}
-              onReadMore={() => router.push(`/${locale}/hakkimizda`)}
-              showReadMore={true}
-            />
-            <CategorySection />
+            <div className="w-full">
+              <AboutSection
+                banner={about.banner.startsWith('http') ? about.banner : `http://127.0.0.1:8000/storage/${about.banner}`}
+                content={about.content}
+                description={about.categories[0].description}
+                onReadMore={() => router.push(`/${locale}/hakkimizda`)}
+                showReadMore={true}
+              />
+            </div>
+            <div className="w-full">
+              <CategorySection />
+            </div>
           </>
         )}
       </main>

@@ -172,27 +172,41 @@ const DynamicPage = () => {
         {/* Kategoriye göre postlar */}
         {/* Post detay sayfası */}
         {postDetail && (
-          <section
-            className="w-full flex flex-col md:flex-row gap-10 items-start justify-center mt-12 mb-12 px-4 md:px-8 bg-transparent"
-            style={{ maxWidth: 1200, marginLeft: 'auto', marginRight: 'auto' }}
-          >
-            <div className="flex-1 flex items-center justify-center">
-              {postDetail.banner ? (
-                postDetail.banner.startsWith("http") ? (
-                  <Image src={postDetail.banner} alt={postDetail.title || ""} width={600} height={400} style={{ borderRadius: 16, objectFit: "cover", boxShadow: '0 8px 32px rgba(31, 38, 135, 0.1)' }} unoptimized />
-                ) : (
-                  <Image src={`http://127.0.0.1:8000/storage/${postDetail.banner}`} alt={postDetail.title || ""} width={600} height={400} style={{ borderRadius: 16, objectFit: "cover", boxShadow: '0 8px 32px rgba(31, 38, 135, 0.1)' }} unoptimized />
-                )
-              ) : null}
+          <>
+            {/* Banner section */}
+            <div className="w-full bg-linear-to-b from-white via-blue-50 to-transparent py-12 md:py-20">
+              <div className="max-w-6xl mx-auto px-4 md:px-8">
+                <h1 className="category-title-large text-center mb-8 md:mb-12">{postDetail.title || "Başlık Yok"}</h1>
+                {postDetail.banner && (
+                  <div className="flex justify-center">
+                    {postDetail.banner.startsWith("http") ? (
+                      <Image src={postDetail.banner} alt={postDetail.title || ""} width={800} height={500} className="w-full max-w-4xl rounded-3xl shadow-lg object-cover" style={{ maxHeight: 500 }} unoptimized />
+                    ) : (
+                      <Image src={`http://127.0.0.1:8000/storage/${postDetail.banner}`} alt={postDetail.title || ""} width={800} height={500} className="w-full max-w-4xl rounded-3xl shadow-lg object-cover" style={{ maxHeight: 500 }} unoptimized />
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
-            <div className="flex-1 flex flex-col gap-6" >
-              <h1 style={{ fontSize: 40, fontWeight: 700, color: '#1e3a8a', marginBottom: 8, lineHeight: 1.2 }}>{postDetail.title || "Başlık Yok"}</h1>
-              {(postDetail.description || (postDetail.categories && postDetail.categories[0]?.description) || postDetail.content) && (
-                <div style={{ fontSize: 18, color: '#666', marginBottom: 12, fontWeight: 500, lineHeight: 1.6 }} dangerouslySetInnerHTML={{ __html: postDetail.description || postDetail.categories[0]?.description || (postDetail.content ? postDetail.content.replace(/<[^>]*>/g, '').substring(0, 200) + '...' : '') }} />
-              )}
-              <div style={{ fontSize: 16, color: '#555', lineHeight: 1.8 }} dangerouslySetInnerHTML={{ __html: postDetail.content || "<em>İçerik bulunamadı.</em>" }} />
-            </div>
-          </section>
+
+            {/* Content section */}
+            <section className="w-full bg-white py-16 md:py-24">
+              <div className="max-w-4xl mx-auto px-4 md:px-8">
+                {(postDetail.description || (postDetail.categories && postDetail.categories[0]?.description)) && (
+                  <div className="mb-12 pb-12 border-b border-gray-200">
+                    <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6">Özet</h2>
+                    <div className="text-lg text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: postDetail.description || postDetail.categories[0]?.description || '' }} />
+                  </div>
+                )}
+                {postDetail.content && (
+                  <div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-6">Detaylar</h2>
+                    <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: postDetail.content }} />
+                  </div>
+                )}
+              </div>
+            </section>
+          </>
         )}
         {/* Kategoriye göre postlar */}
         {!pageData && !notFound && !postDetail && categoryPosts.length > 0 && (

@@ -91,7 +91,7 @@ function Header() {
 	return (
 		<header className="w-full py-3 bg-blue-100 dark:bg-blue-900 shadow px-4 sm:px-6 min-h-16 max-h-20 z-99999">
 			<div className="flex items-center justify-between w-full">
-				<div className="flex items-center gap-3 shrink-0">
+				<Link href="/" className="flex items-center gap-3 shrink-0 hover:opacity-80 transition-opacity">
 					<Image
 						src={getLogoUrl(settings?.site_white_logo || null)}
 						alt="Logo"
@@ -103,7 +103,7 @@ function Header() {
 					<span className="text-lg sm:text-xl font-bold text-blue-900 dark:text-blue-100">
 						{settings?.site_name || "Proje2"}
 					</span>
-				</div>
+				</Link>
 				{/* Hamburger icon for mobile */}
 				<button
 					className="sm:hidden flex flex-col justify-center items-center w-10 h-10 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"

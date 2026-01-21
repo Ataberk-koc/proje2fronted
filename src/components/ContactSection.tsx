@@ -66,7 +66,7 @@ const ContactSection: React.FC = () => {
   if (!contact) return null;
 
   return (
-    <section className="w-full bg-linear-to-b from-white via-blue-50 to-white py-20 md:py-32 flex flex-col items-center relative overflow-hidden">
+    <section id="contact" className="w-full bg-linear-to-b from-white via-blue-50 to-white py-20 md:py-32 flex flex-col items-center relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute top-20 left-0 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
       <div className="absolute bottom-20 right-0 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{animationDelay: '2s'}}></div>
@@ -91,7 +91,7 @@ const ContactSection: React.FC = () => {
                 <div className="relative">
                   {field.type === 'textarea' ? (
                     <textarea
-                      className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all duration-300 font-sans resize-none placeholder-gray-400 shadow-sm hover:shadow-md"
+                      className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all duration-300 font-sans resize-none placeholder-gray-400 shadow-sm hover:shadow-md text-blue-600"
                       placeholder={field.placeholder}
                       required={field.required}
                       value={form[field.label] || ''}
@@ -102,7 +102,7 @@ const ContactSection: React.FC = () => {
                     />
                   ) : (
                     <input
-                      className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all duration-300 font-sans placeholder-gray-400 shadow-sm hover:shadow-md"
+                      className="w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all duration-300 font-sans placeholder-gray-400 shadow-sm hover:shadow-md text-blue-600"
                       type={field.type}
                       placeholder={field.placeholder}
                       required={field.required}

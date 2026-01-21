@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Section2 from "./Section2";
 import { useTranslation } from "react-i18next";
@@ -115,8 +115,15 @@ export default function SliderSection() {
             </p>
             {mainSlide.button_text && (
               <a
-                href={mainSlide.url || "#"}
+                href="#contact"
                 className="inline-block px-6 md:px-8 py-2 md:py-3 bg-white text-black font-semibold rounded-full shadow hover:bg-zinc-200 transition pointer-events-auto text-sm md:text-lg"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
                 {mainSlide.button_text}
               </a>
@@ -124,19 +131,7 @@ export default function SliderSection() {
           </div>
         </div>
 
-        {/* Slider Navigation Dots - Yuvarlak için DEĞİL artık */}
-        {false && slides.length > 1 && (
-          <div className="absolute bottom-6 right-6 flex gap-2 z-40">
-            {slides.map((_: unknown, idx: number) => (
-              <button
-                key={idx}
-                className={`w-3 h-3 rounded-full border border-white transition-all ${false === idx ? "bg-white w-8" : "bg-transparent"}`}
-                onClick={() => {}}
-                aria-label={`Go to overlay slide ${idx + 1}`}
-              />
-            ))}
-          </div>
-        )}
+        {/* Slider Navigation Dots - Devre dışı */}
       </div>
     </section>
   );

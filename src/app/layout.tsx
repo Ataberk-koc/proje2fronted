@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Proje2",
+  title: "Doen Beauty",
   description: "Written by Ataberk",
 };
 

@@ -101,7 +101,7 @@ function Header() {
 						unoptimized
 					/>
 					<span className="text-lg sm:text-xl font-bold text-white dark:text-blue-100">
-						{settings?.site_name || "Proje2"}
+						{settings?.site_name || "Doen Beauty"}
 					</span>
 				</Link>
 				{/* Hamburger icon for mobile */}
@@ -163,10 +163,10 @@ function Header() {
 						>
 							{locale === 'tr' ? 'Türkçe' : 'English'}
 							<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6"/></svg>
-							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 						</button>
 						{languageDropdownOpen && (
-							<div className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-blue-950 rounded-lg shadow-2xl border border-blue-200 z-100000 py-2">
+							<div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-2xl border border-blue-200 z-100000 py-2">
 								<button
 									onClick={() => {
 										changeLanguage('tr');
@@ -175,7 +175,7 @@ function Header() {
 									className={`block w-full text-left px-4 py-2 font-medium transition-colors ${
 										locale === 'tr'
 											? 'bg-blue-100 dark:bg-blue-800 text-blue-900 dark:text-blue-100'
-											: 'text-blue-900 dark:text-blue-100 hover:bg-blue-50 dark:hover:bg-blue-800'
+											: 'text-blue-900 dark:text-blue-900 hover:bg-blue-50 dark:hover:bg-blue-100'
 									}`}
 								>
 									Türkçe
@@ -188,7 +188,7 @@ function Header() {
 									className={`block w-full text-left px-4 py-2 font-medium transition-colors ${
 										locale === 'en'
 											? 'bg-blue-100 dark:bg-blue-800 text-blue-900 dark:text-blue-100'
-											: 'text-blue-900 dark:text-blue-100 hover:bg-blue-50 dark:hover:bg-blue-800'
+											: 'text-blue-900 dark:text-blue-900 hover:bg-blue-50 dark:hover:bg-blue-100'
 									}`}
 								>
 									English
@@ -217,7 +217,7 @@ function Header() {
 						{locale === 'en' ? 'Contact' : 'İletişim'}
 							<span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
 						</Link>
-						<div className="relative">
+						<div className="relative" ref={dropdownRef}>
 							<button
 								className="w-full text-left text-blue-900 dark:text-blue-100 font-medium hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-300 relative group flex items-center gap-2"
 								onClick={() => setDropdownOpen((v) => !v)}
@@ -249,7 +249,7 @@ function Header() {
 							)}
 						</div>
 					{/* Dil Dropdown Mobile */}
-						<div className="relative">
+						<div className="relative" ref={languageDropdownRef}>
 							<button
 								onClick={() => setLanguageDropdownOpen((v) => !v)}
 								className="w-full text-left text-blue-900 dark:text-blue-100 font-medium hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-300 relative group flex items-center gap-2 justify-between"

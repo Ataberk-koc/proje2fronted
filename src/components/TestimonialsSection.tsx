@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface Testimonial {
   id: number;
@@ -119,15 +120,28 @@ const TESTIMONIALS_TR: Testimonial[] = [
 const TestimonialsSection: React.FC = () => {
   const { i18n } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
+  const { ref, isVisible } = useScrollAnimation(0.1);
 
   const testimonials = useMemo(() => (i18n.language === 'en' ? TESTIMONIALS_EN : TESTIMONIALS_TR), [i18n.language]);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    
+    testimonials.forEach((_, index) => {
+      setTimeout(() => {
+        setVisibleItems(prev => new Set(prev).add(index));
+      }, index * 80);
+    });
+  }, [testimonials, isVisible]);
+
   const renderStars = (rating: number) => {
     return (
       <div className="flex gap-1">
         {[1, 2, 3, 4, 5].map((star) => (
           <svg
             key={star}
-            className={`w-5 h-5 ${star <= rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-300 text-gray-300'}`}
+            className={`w-5 h-5 transition-all duration-300 ${star <= rating ? 'fill-yellow-400 text-yellow-400 scale-100' : 'fill-gray-300 text-gray-300'}`}
             viewBox="0 0 20 20"
           >
             <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
@@ -146,7 +160,43 @@ const TestimonialsSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-linear-to-b from-white via-blue-50 to-white py-20 md:py-32 flex flex-col items-center relative overflow-hidden">
+    <section className="w-full bg-linear-to-b from-white via-blue-50 to-white py-20 md:py-32 flex flex-col items-center relative overflow-hidden" ref={ref}>
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-up {
+          animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .testimonial-card {
+          transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+        .testimonial-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 20px 50px rgba(59, 130, 246, 0.2);
+        }
+        .testimonial-divider {
+          transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+        .testimonial-card:hover .testimonial-divider {
+          width: 100%;
+        }
+        .avatar {
+          transition: all 0.3s ease;
+        }
+        .testimonial-card:hover .avatar {
+          border-color: rgba(59, 130, 246, 0.5);
+          box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
+        }
+      `}</style>
+      
       {/* Background decorative elements */}
       <div className="absolute top-32 right-10 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-pulse"></div>
       <div className="absolute bottom-10 left-10 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-pulse" style={{ animationDelay: '2s' }}></div>
@@ -155,12 +205,12 @@ const TestimonialsSection: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="category-title-large mb-6 text-center">
-            {i18n.language === 'en' ? 'What Our Customers Say?' : 'Müşterilerimiz Ne Diyor?'}
+            {i18n.language === 'en' ? 'Client Success Stories' : 'Müşteri Başarı Hikayeleri'}
           </h2>
           <p className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">
             {i18n.language === 'en' 
-              ? 'Learn about the trust and satisfaction our customers have in us' 
-              : 'Müşterilerimizin bize duydukları güven ve memnuniyeti öğrenin'}
+              ? 'See what our clients say about working with us' 
+              : 'Müşterilerimizin bizimle çalışmaktan neler söylediğini görenin'}
           </p>
         </div>
 
@@ -169,21 +219,35 @@ const TestimonialsSection: React.FC = () => {
           {testimonials.map((testimonial, idx) => (
             <div
               key={idx}
-              className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 border border-gray-100 hover:border-blue-200 relative overflow-hidden"
+              className="group bg-white rounded-2xl shadow-lg p-8 border border-gray-100 relative overflow-hidden testimonial-card"
+              style={{
+                animation: visibleItems.has(idx) ? `fadeInUp 0.6s ease-out ${idx * 0.1}s forwards` : 'none',
+                opacity: visibleItems.has(idx) ? 1 : 0,
+              }}
             >
               {/* Gradient overlay on hover */}
               <div className="absolute top-0 left-0 w-1 h-full bg-linear-to-b from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
               {/* Rating Stars */}
-              <div className="mb-4">{renderStars(testimonial.rating)}</div>
+              <div className="mb-5 flex gap-1">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <svg
+                    key={star}
+                    className={`w-5 h-5 transition-all duration-300 ${star <= testimonial.rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-300 text-gray-300'}`}
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                  </svg>
+                ))}
+              </div>
 
               {/* Testimonial Message */}
-              <p className="text-gray-700 text-base leading-relaxed mb-6 italic line-clamp-4">
+              <p className="text-gray-700 text-base leading-relaxed mb-6 italic line-clamp-4 font-medium">
                 &ldquo;{testimonial.message}&rdquo;
               </p>
 
               {/* Divider */}
-              <div className="h-1 w-12 bg-linear-to-r from-blue-600 to-indigo-600 mb-6 group-hover:w-full transition-all duration-300"></div>
+              <div className="h-1 w-12 bg-gradient-to-r from-blue-600 to-indigo-600 mb-6 testimonial-divider rounded-full"></div>
 
               {/* Author Info */}
               <div className="flex items-center gap-4">
@@ -193,16 +257,16 @@ const TestimonialsSection: React.FC = () => {
                     alt={testimonial.name}
                     width={56}
                     height={56}
-                    className="w-14 h-14 rounded-full object-cover border-2 border-blue-100"
+                    className="w-14 h-14 rounded-full object-cover border-3 border-blue-200 avatar shadow-sm"
                   />
                 ) : (
-                  <div className="w-14 h-14 rounded-full bg-linear-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-lg">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-lg avatar shadow-md">
                     {getInitials(testimonial.name)}
                   </div>
                 )}
                 <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900 text-base">{testimonial.name}</h4>
-                  <p className="text-gray-600 text-sm">
+                  <h4 className="font-bold text-gray-900 text-base">{testimonial.name}</h4>
+                  <p className="text-gray-600 text-sm font-medium">
                     {testimonial.role} {testimonial.company && `@ ${testimonial.company}`}
                   </p>
                 </div>

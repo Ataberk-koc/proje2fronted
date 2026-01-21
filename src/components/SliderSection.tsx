@@ -75,9 +75,9 @@ export default function SliderSection() {
           />
         </picture>
 
-        {/* Overlay Slider - Sağ-merkez tarafta yuvarlak, çok büyük - SABİT */}
+        {/* Overlay Slider - Yuvarlak (Mobilde sağda altta küçük, Desktop'ta sağda büyük) */}
         {overlaySlide && (
-          <div className="absolute right-10 top-1/2 -translate-y-1/2 z-20 w-96 h-96 md:w-[650px] md:h-[650px] overflow-hidden pointer-events-auto">
+          <div className="absolute right-4 md:right-10 bottom-8 md:bottom-auto md:top-1/2 md:-translate-y-1/2 z-20 w-48 h-48 md:w-[650px] md:h-[650px] overflow-hidden pointer-events-auto">
             <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl border-8 border-white">
               <picture className="absolute inset-0 w-full h-full">
                 <source media="(max-width: 768px)" srcSet={overlaySlide.mobile_image} />
@@ -98,25 +98,25 @@ export default function SliderSection() {
           <HeaderTransparent />
         </div>
 
-        {/* Slider text - Sol tarafta, daha büyük */}
-        <div className="absolute inset-0 flex flex-col justify-center items-start px-8 md:px-12 z-30 pointer-events-none">
-          <div className="max-w-4xl text-left text-white pointer-events-auto">
+        {/* Slider text - Mobilde merkez-solda ufak, Desktop'ta sol büyük */}
+        <div className="absolute inset-0 flex flex-col justify-center md:justify-center items-start px-4 md:px-12 pt-8 md:pt-0 z-30 pointer-events-none">
+          <div className="max-w-sm md:max-w-4xl text-left text-white pointer-events-auto">
             <h2 
-              className="font-bold mb-8 drop-shadow-lg leading-tight"
-              style={{ fontSize: "70px" }}
+              className="font-bold mb-2 md:mb-8 drop-shadow-lg leading-tight"
+              style={{ fontSize: "clamp(24px, 7vw, 70px)", color: "#64B5F6" }}
             >
               {mainSlide.title}
             </h2>
             <p 
-              className="mb-10 drop-shadow-lg"
-              style={{ fontSize: "36px" }}
+              className="mb-4 md:mb-10 drop-shadow-lg"
+              style={{ fontSize: "clamp(14px, 4vw, 36px)" }}
             >
               {mainSlide.short_description}
             </p>
             {mainSlide.button_text && (
               <a
                 href={mainSlide.url || "#"}
-                className="inline-block px-8 py-3 bg-white text-black font-semibold rounded-full shadow hover:bg-zinc-200 transition pointer-events-auto text-lg"
+                className="inline-block px-6 md:px-8 py-2 md:py-3 bg-white text-black font-semibold rounded-full shadow hover:bg-zinc-200 transition pointer-events-auto text-sm md:text-lg"
               >
                 {mainSlide.button_text}
               </a>
